@@ -1,1 +1,175 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>Привет!</title>
+
+<style>
+body {
+    margin: 0;
+    background: #f4f3f1;
+    color: #2d2d2d;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+}
+
+.hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    animation: fade 2s ease;
+}
+
+h1 {
+    font-size: 72px;
+    font-weight: 300;
+    letter-spacing: 5px;
+    margin: 0;
+}
+
+.subtitle {
+    margin-top: 25px;
+    font-size: 18px;
+    color: #777;
+    letter-spacing: 2px;
+}
+
+.line {
+    width: 80px;
+    height: 1px;
+    background: #999;
+    margin: 35px;
+}
+
+.story {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 80px 25px;
+    font-size: 20px;
+    line-height: 1.8;
+    font-weight: 300;
+}
+
+.highlight {
+    color: #8b6f5a;
+}
+
+.gallery {
+    padding: 40px 25px;
+    text-align: center;
+}
+
+.gallery h2 {
+    font-weight: 300;
+    letter-spacing: 3px;
+}
+
+.art {
+    margin: 50px auto;
+    max-width: 500px;
+}
+
+.art img {
+    width: 100%;
+    border-radius: 4px;
+}
+
+.art p {
+    font-size: 17px;
+    color: #555;
+}
+
+footer {
+    text-align: center;
+    padding: 50px;
+    color: #888;
+}
+
+@keyframes fade {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+</style>
+
+</head>
+
+<body>
+
+<section class="hero">
+
+<h1>Привет!</h1>
+
+<div class="line"></div>
+
+<div class="subtitle">
+Добро пожаловать в мою историю
+</div>
+
+</section>
+
+
+<section class="story">
+
+<p>
+В ресторанах грузинской кухни рассказывают легенды — истории про то, как возникли национальные блюда.
+</p>
+
+<p>
+Легенда — это какое-то предание, история.
+</p>
+
+<p>
+Моя легенда начинается с выставки в баре 
+<span class="highlight">«Тайная комната».</span>
+</p>
+
+<p>
+Этот бар я нашла случайно и пришла туда с намерением стать барменом.
+</p>
+
+<p>
+Моё желание не исчезло.
+</p>
+
+<p>
+Но у всего есть своё начало.
+</p>
+
+<p>
+В данный момент я участвую в выставке художников в 
+<span class="highlight">«Тайной комнате»</span>
+и рада, что мои произведения наконец-то увидят свет.
+</p>
+
+</section>
+
+
+<section class="gallery">
+
+<h2>Мои работы</h2>
+
+<div class="art">
+<img src="https://via.placeholder.com/600x700" alt="Картина">
+<p>Название картины<br>Описание работы</p>
+</div>
+
+</section>
+
+
+<footer>
+© 2026
+</footer>
+
+
+</body>
+</html>
