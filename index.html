@@ -4,173 +4,224 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Графика.(Избранное)</title>
+<title>Каждая история начинается с легенды</title>
 
 <style>
-body {
-    margin: 0;
-    background: #f4f3f1;
-    color: #2d2d2d;
-    font-family: "Helvetica Neue", Arial, sans-serif;
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-.hero {
-     height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    text-align: center;
-    padding-top: 180px;
+body{
+    background:#0d0d0d;
+    overflow:hidden;
+    font-family:Georgia, serif;
 }
 
-h1 {
-    font-size: 30px;
-    font-weight: 300;
-    letter-spacing: 2px;
-    margin: 0;
+/* Фон бара */
+
+.bar{
+    position:relative;
+    width:100vw;
+    height:100vh;
+    background:
+    radial-gradient(circle at 50% 25%, rgba(255,210,140,.12), transparent 40%),
+    linear-gradient(#171717,#090909);
 }
 
-.subtitle {
-    margin-top: 25px;
-    font-size: 18px;
-    color: #777;
-    letter-spacing: 2px;
+/* Размытые бутылки */
+
+.bottle{
+    position:absolute;
+    bottom:180px;
+    width:35px;
+    border-radius:12px 12px 4px 4px;
+    background:#2d2d2d;
+    filter:blur(1px);
+    opacity:.45;
 }
 
-.line {
-    width: 180px;
-    height: 1px;
-    background: #999;
-    margin: 35px auto;
+.b1{left:22%;height:130px;}
+.b2{left:28%;height:160px;}
+.b3{right:25%;height:145px;}
+.b4{right:31%;height:170px;}
+
+/* Металлическая стойка */
+
+.counter{
+    position:absolute;
+    bottom:0;
+    width:100%;
+    height:180px;
+
+    background:
+    linear-gradient(
+    to bottom,
+    #5d5d5d,
+    #a5a5a5 20%,
+    #6e6e6e 40%,
+    #3f3f3f 70%,
+    #242424);
 }
 
-.story {
-    max-width: 700px;
-    margin: 0 auto;
-    padding: 80px 25px;
-    font-size: 20px;
-    line-height: 1.8;
-    font-weight: 300;
+/* Бокал */
+
+.glass{
+    position:absolute;
+    left:50%;
+    bottom:150px;
+    transform:translateX(-50%);
+    width:110px;
+    height:170px;
 }
 
-.highlight {
-    color: #8b6f5a;
+.bowl{
+    position:absolute;
+    width:110px;
+    height:110px;
+    border:2px solid rgba(255,255,255,.85);
+    border-bottom:none;
+    border-radius:0 0 55px 55px;
+    overflow:hidden;
 }
 
-.gallery {
-    padding: 40px 25px;
-    text-align: center;
+.stem{
+    position:absolute;
+    width:4px;
+    height:55px;
+    background:white;
+    left:53px;
+    top:110px;
 }
 
-.gallery h2 {
-    font-weight: 300;
-    letter-spacing: 3px;
+.base{
+    position:absolute;
+    width:60px;
+    height:2px;
+    background:white;
+    top:165px;
+    left:25px;
 }
 
-.art {
-    margin: 50px auto;
-    max-width: 500px;
+/* Напиток */
+
+.liquid{
+    position:absolute;
+    bottom:0;
+    width:100%;
+    height:0%;
+    background:
+    linear-gradient(
+    to top,
+    rgba(245,245,245,.95),
+    rgba(255,255,255,.55)
+    );
+
+    animation:fill 4s ease forwards;
 }
 
-.art img {
-    width: 100%;
-    border-radius: 4px;
+/* Надпись */
+
+.text{
+
+    position:absolute;
+    width:100%;
+    text-align:center;
+    top:18%;
+
+    color:white;
+
+    font-size:34px;
+    letter-spacing:2px;
+
+    opacity:0;
+
+    animation:show 2s forwards;
+    animation-delay:3.8s;
+
 }
 
-.art p {
-    font-size: 17px;
-    color: #555;
+.small{
+
+    margin-top:18px;
+    font-size:18px;
+    color:#cfcfcf;
+    letter-spacing:1px;
+
 }
 
-footer {
-    text-align: center;
-    padding: 50px;
-    color: #888;
+/* Анимации */
+
+@keyframes fill{
+
+0%{
+height:0%;
 }
 
-@keyframes fade {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+100%{
+height:88%;
 }
+
+}
+
+@keyframes show{
+
+from{
+opacity:0;
+transform:translateY(20px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
 </style>
 
 </head>
 
 <body>
 
-<section class="hero">
+<div class="bar">
 
-<h1>Графика.Избранные работы.</h1>
+<div class="bottle b1"></div>
+<div class="bottle b2"></div>
+<div class="bottle b3"></div>
+<div class="bottle b4"></div>
 
-<div class="line"></div>
+<div class="text">
 
-<div class="subtitle">
-Выставка в баре «Тайная комната».
-Июль 2026.
+Каждая история начинается с легенды.
+
+<div class="small">
+
+↓
+
 </div>
 
-</section>
-
-
-<section class="story">
-
-<p>
-В ресторанах грузинской кухни рассказывают легенды — истории про то, как возникли национальные блюда.
-</p>
-
-<p>
-Легенда — это какое-то предание, история.
-</p>
-
-<p>
-Моя легенда начинается с выставки в баре 
-<span class="highlight">«Тайная комната».</span>
-</p>
-
-<p>
-Этот бар я нашла случайно и пришла туда с намерением стать барменом.
-</p>
-
-<p>
-Моё желание не исчезло.
-</p>
-
-<p>
-Но у всего есть своё начало.
-</p>
-
-<p>
-В данный момент я участвую в выставке художников в 
-<span class="highlight">«Тайной комнате»</span>
-и рада, что мои произведения наконец-то увидят свет.
-</p>
-
-</section>
-
-
-<section class="gallery">
-
-<h2>Мои работы</h2>
-
-<div class="art">
-<img src="https://via.placeholder.com/600x700" alt="Картина">
-<p>Название картины<br>Описание работы</p>
 </div>
 
-</section>
+<div class="glass">
 
+<div class="bowl">
 
-<footer>
-© 2026
-</footer>
+<div class="liquid"></div>
 
+</div>
+
+<div class="stem"></div>
+
+<div class="base"></div>
+
+</div>
+
+<div class="counter"></div>
+
+</div>
 
 </body>
 </html>
