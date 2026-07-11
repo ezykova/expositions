@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -9,219 +11,463 @@
 <style>
 
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+margin:0;
+padding:0;
+box-sizing:border-box;
 }
+
 
 body{
-    background:#0d0d0d;
-    overflow:hidden;
-    font-family:Georgia, serif;
+
+height:100vh;
+overflow:hidden;
+font-family:Georgia, serif;
+
 }
 
-/* Фон бара */
 
-.bar{
-    position:relative;
-    width:100vw;
-    height:100vh;
-    background:
-    radial-gradient(circle at 50% 25%, rgba(255,210,140,.12), transparent 40%),
-    linear-gradient(#171717,#090909);
+/* СЦЕНА */
+
+.scene{
+
+height:100vh;
+width:100vw;
+
+position:relative;
+
+background:
+
+linear-gradient(
+rgba(255,255,255,.15),
+rgba(0,0,0,.15)
+),
+
+#c7c7c5;
+
 }
 
-/* Размытые бутылки */
 
-.bottle{
-    position:absolute;
-    bottom:180px;
-    width:35px;
-    border-radius:12px 12px 4px 4px;
-    background:#2d2d2d;
-    filter:blur(1px);
-    opacity:.45;
+/* ГРАФФИТИ */
+
+.graffiti{
+
+position:absolute;
+
+top:60px;
+left:80px;
+
+width:350px;
+height:220px;
+
+opacity:.7;
+
+background:
+
+radial-gradient(circle at 20% 30%, #ff4d6d 0 30px, transparent 31px),
+radial-gradient(circle at 60% 40%, #00b4d8 0 45px, transparent 46px),
+radial-gradient(circle at 40% 70%, #ffd60a 0 35px, transparent 36px),
+radial-gradient(circle at 80% 60%, #8338ec 0 40px, transparent 41px);
+
+filter:blur(.5px);
+
+transform:rotate(-8deg);
+
 }
 
-.b1{left:22%;height:130px;}
-.b2{left:28%;height:160px;}
-.b3{right:25%;height:145px;}
-.b4{right:31%;height:170px;}
 
-/* Металлическая стойка */
+
+/* МЕТАЛЛИЧЕСКАЯ СТОЙКА */
 
 .counter{
-    position:absolute;
-    bottom:0;
-    width:100%;
-    height:180px;
 
-    background:
-    linear-gradient(
-    to bottom,
-    #5d5d5d,
-    #a5a5a5 20%,
-    #6e6e6e 40%,
-    #3f3f3f 70%,
-    #242424);
+position:absolute;
+
+bottom:0;
+
+width:100%;
+
+height:180px;
+
+
+background:
+
+linear-gradient(
+90deg,
+#333,
+#9b9b9b,
+#555,
+#b5b5b5,
+#404040
+);
+
+
+box-shadow:
+
+0 -15px 40px rgba(0,0,0,.35);
+
+
 }
 
-/* Бокал */
+
+/* блик металла */
+
+.counter:before{
+
+content:"";
+
+position:absolute;
+
+top:20px;
+
+left:0;
+
+width:100%;
+
+height:2px;
+
+background:rgba(255,255,255,.5);
+
+}
+
+
+
+/* БОКАЛ МАРТИНИ */
+
 
 .glass{
-    position:absolute;
-    left:50%;
-    bottom:150px;
-    transform:translateX(-50%);
-    width:110px;
-    height:170px;
+
+position:absolute;
+
+bottom:170px;
+
+left:50%;
+
+transform:translateX(-50%);
+
+width:170px;
+
+height:220px;
+
+z-index:5;
+
 }
+
+
 
 .bowl{
-    position:absolute;
-    width:110px;
-    height:110px;
-    border:2px solid rgba(255,255,255,.85);
-    border-bottom:none;
-    border-radius:0 0 55px 55px;
-    overflow:hidden;
+
+position:absolute;
+
+width:170px;
+
+height:110px;
+
+border:3px solid rgba(255,255,255,.9);
+
+border-radius:0 0 90px 90px;
+
+overflow:hidden;
+
+background:rgba(255,255,255,.08);
+
 }
+
+
+
+/* напиток */
+
+.drink{
+
+position:absolute;
+
+bottom:0;
+
+width:100%;
+
+height:0;
+
+background:
+
+linear-gradient(
+to top,
+#f7f4ee,
+#ffffff
+);
+
+
+animation:fill 4s forwards;
+
+
+}
+
+
 
 .stem{
-    position:absolute;
-    width:4px;
-    height:55px;
-    background:white;
-    left:53px;
-    top:110px;
+
+position:absolute;
+
+top:108px;
+
+left:84px;
+
+height:90px;
+
+width:3px;
+
+background:white;
+
 }
+
+
 
 .base{
-    position:absolute;
-    width:60px;
-    height:2px;
-    background:white;
-    top:165px;
-    left:25px;
-}
 
-/* Напиток */
+position:absolute;
 
-.liquid{
-    position:absolute;
-    bottom:0;
-    width:100%;
-    height:0%;
-    background:
-    linear-gradient(
-    to top,
-    rgba(245,245,245,.95),
-    rgba(255,255,255,.55)
-    );
+bottom:0;
 
-    animation:fill 4s ease forwards;
-}
+left:45px;
 
-/* Надпись */
+width:80px;
 
-.text{
+height:3px;
 
-    position:absolute;
-    width:100%;
-    text-align:center;
-    top:18%;
-
-    color:white;
-
-    font-size:34px;
-    letter-spacing:2px;
-
-    opacity:0;
-
-    animation:show 2s forwards;
-    animation-delay:3.8s;
+background:white;
 
 }
 
-.small{
 
-    margin-top:18px;
-    font-size:18px;
-    color:#cfcfcf;
-    letter-spacing:1px;
+
+
+/* РУКА БАРМЕНА */
+
+.hand{
+
+position:absolute;
+
+right:-250px;
+
+top:38%;
+
+width:360px;
+
+height:90px;
+
+background:
+
+linear-gradient(
+90deg,
+#d39b75,
+#f0b894
+);
+
+
+border-radius:
+
+50px 0 0 50px;
+
+
+transform:rotate(-12deg);
+
+
+z-index:4;
+
+
+animation:handMove 4s forwards;
+
 
 }
 
-/* Анимации */
+
+
+/* шейкер */
+
+.shaker{
+
+position:absolute;
+
+right:40px;
+
+top:-40px;
+
+width:80px;
+
+height:35px;
+
+background:silver;
+
+border-radius:20px;
+
+transform:rotate(-30deg);
+
+}
+
+
+
+
+/* ТЕКСТ */
+
+
+.title{
+
+position:absolute;
+
+top:18%;
+
+width:100%;
+
+text-align:center;
+
+color:#222;
+
+font-size:38px;
+
+letter-spacing:2px;
+
+
+opacity:0;
+
+
+animation:appear 2s forwards;
+
+animation-delay:4s;
+
+
+z-index:10;
+
+
+}
+
+
+
+/* АНИМАЦИИ */
+
 
 @keyframes fill{
 
-0%{
-height:0%;
-}
-
-100%{
-height:88%;
-}
-
-}
-
-@keyframes show{
-
 from{
-opacity:0;
-transform:translateY(20px);
+
+height:0;
+
 }
 
 to{
-opacity:1;
-transform:translateY(0);
+
+height:85%;
+
 }
 
 }
+
+
+
+@keyframes handMove{
+
+
+0%{
+
+right:-250px;
+
+}
+
+
+60%{
+
+right:130px;
+
+}
+
+
+100%{
+
+right:110px;
+
+}
+
+
+}
+
+
+
+@keyframes appear{
+
+
+from{
+
+opacity:0;
+
+transform:translateY(20px);
+
+}
+
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+
+}
+
 
 </style>
 
 </head>
 
+
 <body>
 
-<div class="bar">
 
-<div class="bottle b1"></div>
-<div class="bottle b2"></div>
-<div class="bottle b3"></div>
-<div class="bottle b4"></div>
+<div class="scene">
 
-<div class="text">
 
-Каждая история начинается с легенды.
+<div class="graffiti"></div>
 
-<div class="small">
 
-↓
+<div class="hand">
+
+<div class="shaker"></div>
 
 </div>
 
-</div>
+
 
 <div class="glass">
 
 <div class="bowl">
 
-<div class="liquid"></div>
+<div class="drink"></div>
 
 </div>
+
 
 <div class="stem"></div>
 
 <div class="base"></div>
 
+
 </div>
+
+
+
+<div class="title">
+
+Каждая история начинается с легенды.
+
+</div>
+
+
 
 <div class="counter"></div>
 
+
+
 </div>
 
+
 </body>
+
 </html>
