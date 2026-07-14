@@ -2,571 +2,365 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <meta name="theme-color" content="#E6F2FF">
-    <title>Моя История</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Екатерина Зыкова | Художница</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Marta&family=Baystar+Script&display=swap" rel="stylesheet">
+    
     <style>
-        /* ===== RESET ===== */
+        /* ===== ПЕРЕМЕННЫЕ ===== */
+        :root {
+            --color-white: #ffffff;
+            --color-ochre: #c9a86a;
+            --color-gold: #d4af37;
+            --color-dark: #1a1a1a;
+            --color-blue-main: #3366cc;
+            --color-blue-dark: #1a4a7a;
+            --color-bg-light: #e8f4ff;
+            --color-overlay: rgba(0, 0, 0, 0.4);
+        }
+
+        /* ===== БАЗОВЫЕ СТИЛИ ===== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        html {
-            scroll-behavior: smooth;
         }
 
         body {
-            font-family: 'Open Sans', sans-serif;
-            background: #FFFFFF;
-            color: #1a1a2e;
-            line-height: 1.8;
+            font-family: 'Marta', sans-serif;
+            line-height: 1.6;
+            min-height: 100vh;
             overflow-x: hidden;
         }
 
-        /* ===== COLORS ===== */
-        :root {
-            --blue-light: #E6F2FF;
-            --blue: #0066CC;
-            --blue-dark: #004999;
-            --blue-accent: #66AAFF;
-            --white: #FFFFFF;
-            --gray: #F8FAFC;
-            --text: #1a1a2e;
-            --text-light: #666;
-        }
-
         /* ===== SPLASH SCREEN ===== */
-        .splash-screen {
+        #splash-screen {
             position: fixed;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, var(--blue-light), var(--white));
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            transition: opacity 0.6s ease, visibility 0.6s ease;
-        }
-
-        .splash-screen.hidden {
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        .splash-martini {
-            width: 80px;
-            height: 80px;
-            animation: float 2s ease-in-out infinite, pour 2s ease-in-out infinite;
-        }
-
-        .splash-text {
-            margin-top: 32px;
-            font-size: 1.5rem;
-            color: var(--blue);
-            font-weight: 600;
-            opacity: 0;
-            animation: fadeInUp 0.6s ease forwards 0.8s;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-12px); }
-        }
-
-        @keyframes pour {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.6; }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* ===== GREETING AFTER SPLASH ===== */
-        .greeting-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, var(--blue-light), var(--white));
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 9998;
-            transition: opacity 0.6s ease, visibility 0.6s ease;
-        }
-
-        .greeting-screen.hidden {
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        .greeting-text {
-            font-size: 3rem;
-            color: var(--blue);
-            font-weight: 700;
-            font-family: 'Playfair Display', serif;
-            animation: bounceIn 0.8s ease;
-        }
-
-        .greeting-sub {
-            margin-top: 16px;
-            font-size: 1.1rem;
-            color: var(--text-light);
-            animation: fadeInUp 0.6s ease forwards;
-        }
-
-        @keyframes bounceIn {
-            0% { transform: scale(0.3); opacity: 0; }
-            50% { transform: scale(1.05); opacity: 1; }
-            70% { transform: scale(0.9); }
-            100% { transform: scale(1); }
-        }
-
-        /* ===== NAVIGATION ===== */
-        nav {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            background: var(--white);
-            box-shadow: 0 2px 12px rgba(0, 102, 204, 0.1);
-            padding: 8px 0;
-        }
-
-        .nav-container {
-            max-width: 800px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: center;
-            gap: 4px;
-            padding: 0 16px;
-            overflow-x: auto;
-        }
-
-        .nav-link {
-            padding: 12px 16px;
-            color: var(--blue);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.95rem;
-            border-radius: 8px;
-            transition: background 0.2s ease, transform 0.2s ease;
-            white-space: nowrap;
-            border-bottom: 2px solid transparent;
-        }
-
-        .nav-link:hover,
-        .nav-link.active {
-            background: var(--blue-light);
-            border-bottom-color: var(--blue);
-        }
-
-        .nav-link:active {
-            transform: scale(0.96);
-        }
-
-        /* ===== MAIN CONTENT ===== */
-        main {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 24px 20px 40px;
-        }
-
-        section {
-            margin-bottom: 48px;
-            scroll-margin-top: 80px;
-        }
-
-        .section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            color: var(--blue);
-            margin-bottom: 20px;
-            padding-bottom: 12px;
-            border-bottom: 2px solid var(--blue-light);
-        }
-
-        .editable-text {
-            background: var(--gray);
-            padding: 20px;
-            border-radius: 12px;
-            min-height: 100px;
-            border: 2px dashed var(--blue-light);
-            transition: border-color 0.2s ease;
-        }
-
-        .editable-text:focus-within {
-            border-color: var(--blue);
-            background: var(--white);
-        }
-
-        /* ===== HERO SECTION ===== */
-        .hero {
-            text-align: center;
-            padding: 40px 0;
-            background: linear-gradient(135deg, var(--blue-light), var(--white));
-            border-radius: 20px;
-            margin-bottom: 40px;
-        }
-
-        .hero h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            color: var(--blue);
-            margin-bottom: 16px;
-        }
-
-        .hero p {
-            font-size: 1.1rem;
-            color: var(--text-light);
-            max-width: 500px;
-            margin: 0 auto;
-        }
-
-        /* ===== BIOGRAPHY ===== */
-        .bio-content {
-            font-size: 1rem;
-            line-height: 2;
-            color: var(--text);
-        }
-
-        .bio-content p {
-            margin-bottom: 16px;
-        }
-
-        .bio-content img {
-            max-width: 100%;
-            border-radius: 12px;
-            margin: 20px 0;
-            box-shadow: 0 4px 16px rgba(0, 102, 204, 0.15);
-        }
-
-        /* ===== CONTACTS ===== */
-        .contact-info {
-            background: var(--blue-light);
-            padding: 24px;
-            border-radius: 16px;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 16px;
-            font-size: 1rem;
-        }
-
-        .contact-icon {
-            width: 36px;
-            height: 36px;
-            background: var(--blue);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.2rem;
-        }
-
-        /* ===== EXHIBITION GALLERY ===== */
-        .exhibition-intro {
-            margin-bottom: 24px;
-            font-size: 1rem;
-            color: var(--text-light);
-        }
-
-        .gallery {
-            display: grid;
-            gap: 20px;
-        }
-
-        .gallery-item {
-            background: var(--gray);
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0, 102, 204, 0.08);
-        }
-
-        .gallery-image {
             width: 100%;
-            aspect-ratio: 4/3;
-            background: var(--blue-light);
+            height: 100%;
+            background: var(--color-dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.8s ease;
+        }
+
+        .martini-loader svg {
+            animation: fadeInOut 3s infinite;
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        .splash-hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* ===== НАВИГАЦИЯ ===== */
+        .main-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 1rem 2rem;
+            background: rgba(26, 26, 26, 0.95);
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .main-menu ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .main-menu a {
+            color: var(--color-ochre);
+            text-decoration: none;
+            font-size: 1.1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .main-menu a:hover,
+        .main-menu a.active {
+            color: var(--color-white);
+            font-weight: bold;
+            background: rgba(201, 168, 106, 0.2);
+        }
+
+        /* ===== СОДЕРЖИМОЕ СТРАНИЦ ===== */
+        .page-section {
+            display: none;
+            min-height: 100vh;
+            padding-top: 80px;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        /* --- ГЛАВНАЯ СТРАНИЦА (белый текст) --- */
+        #home-page {
+            position: relative;
+            color: var(--color-white);
+        }
+
+        #home-page .hero-section {
+            position: relative;
+            min-height: calc(100vh - 80px);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--blue);
-            font-size: 2rem;
+            overflow: hidden;
         }
 
-        .gallery-image img {
+        #home-page .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        #home-page .full-bleed-image {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
 
-        .gallery-caption {
-            padding: 16px;
+        #home-page .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--color-overlay);
         }
 
-        .gallery-caption h3 {
-            color: var(--blue);
-            font-size: 1.1rem;
-            margin-bottom: 8px;
-            font-family: 'Playfair Display', serif;
-        }
-
-        .gallery-caption p {
-            font-size: 0.9rem;
-            color: var(--text-light);
-        }
-
-        /* ===== PLACEHOLDER FOR UPLOADS ===== */
-        .upload-placeholder {
-            border: 2px dashed var(--blue);
-            border-radius: 12px;
-            padding: 24px;
+        #home-page .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            padding: 2rem;
             text-align: center;
-            color: var(--blue);
-            background: var(--blue-light);
-            margin: 16px 0;
         }
 
-        /* ===== FOOTER ===== */
+        #home-page .main-title {
+            font-family: 'Baystar Script', cursive;
+            font-size: clamp(3rem, 8vw, 6rem);
+            color: var(--color-white);
+            margin-bottom: 2rem;
+            text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.7);
+        }
+
+        #home-page .hero-text p {
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+        }
+
+        #home-page .highlight {
+            color: #fffacd;
+            font-style: italic;
+        }
+
+        /* --- ОБО МНЕ / ВЫСТАВКА / КОНТАКТЫ (синий текст) --- */
+        #about-page,
+        #exhibition-page,
+        #contacts-page {
+            background-color: var(--color-bg-light);
+            color: var(--color-blue-main);
+        }
+
+        #about-page h1,
+        #exhibition-page h1,
+        #contacts-page h1 {
+            color: var(--color-blue-dark);
+            font-family: 'Baystar Script', cursive;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        #about-page p,
+        #exhibition-page p,
+        #contacts-page p {
+            color: var(--color-blue-main);
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .content-section {
+            padding: 4rem 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        #about-page .artist-info {
+            font-size: 1.2rem;
+            color: var(--color-ochre);
+            background: rgba(201, 168, 106, 0.1);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        #about-page .exhibition-note {
+            color: var(--color-gold);
+            font-style: italic;
+            margin-top: 2rem;
+            background: rgba(212, 175, 55, 0.1);
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        /* --- ГАЛЕРЕЯ ВЫСТАВКИ --- */
+        #exhibition-page .exhibition-content {
+            max-width: 1200px;
+        }
+
+        #exhibition-page .exhibition-title {
+            margin-top: 4rem;
+        }
+
+        #exhibition-page .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        #exhibition-page .artwork {
+            background: rgba(44, 90, 160, 0.15);
+            border: 2px solid var(--color-blue-main);
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        #exhibition-page .artwork:hover {
+            transform: translateY(-5px);
+        }
+
+        #exhibition-page .artwork-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            filter: brightness(1.05) contrast(1.1);
+        }
+
+        #exhibition-page .artwork-description h3 {
+            color: var(--color-blue-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        #exhibition-page .editable-desc {
+            width: 100%;
+            padding: 0.75rem;
+            background: rgba(44, 90, 160, 0.9);
+            border: 1px solid var(--color-blue-main);
+            border-radius: 5px;
+            color: var(--color-white) !important;
+            resize: vertical;
+            font-family: 'Marta', sans-serif;
+            font-size: 1rem;
+        }
+
+        #exhibition-page .editable-desc::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* --- КОНТАКТЫ --- */
+        #contacts-page .contact-link {
+            font-size: 1.3rem;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        #contacts-page .label {
+            color: var(--color-blue-dark);
+            font-weight: bold;
+        }
+
+        #contacts-page .tg-link {
+            color: var(--color-ochre);
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        #contacts-page .tg-link:hover {
+            color: var(--color-blue-main);
+            text-decoration: underline;
+        }
+
+        /* --- FOOTER --- */
         footer {
             text-align: center;
-            padding: 32px 20px;
-            color: var(--text-light);
-            font-size: 0.85rem;
-            border-top: 1px solid var(--blue-light);
-            margin-top: 40px;
+            padding: 2rem;
+            color: rgba(0, 0, 0, 0.6);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
         }
 
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 1.75rem;
-            }
-            .section-title {
-                font-size: 1.5rem;
-            }
-            .greeting-text {
-                font-size: 2rem;
-            }
+        #home-page footer {
+            color: rgba(255, 255, 255, 0.6);
         }
 
-        @media (min-width: 768px) {
-            .gallery {
-                grid-template-columns: 1fr 1fr;
+        .admin-stats {
+            font-size: 0.75rem;
+            color: var(--color-gold);
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        /* ===== АДАПТИВНОСТЬ ===== */
+        @media (max-width: 768px) {
+            .main-menu ul {
+                gap: 1rem;
             }
-            main {
-                padding: 32px 24px 48px;
+
+            .main-menu a {
+                font-size: 0.9rem;
+                padding: 0.3rem 0.5rem;
+            }
+
+            .content-section {
+                padding: 3rem 1rem;
+            }
+
+            #home-page .hero-content {
+                padding: 1.5rem;
+            }
+
+            #exhibition-page .gallery-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-
-    <!-- ===== SPLASH SCREEN (LOADING) ===== -->
-    <div class="splash-screen" id="splashScreen">
-        <svg class="splash-martini" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M8 8 L40 8 L24 26 Z" fill="#0066CC"/>
-            <path d="M24 26 L24 38" stroke="#0066CC" stroke-width="2.5"/>
-            <ellipse cx="24" cy="40" rx="8" ry="2" fill="#0066CC"/>
-        </svg>
-        <div class="splash-text">Загрузка...</div>
-    </div>
-
-    <!-- ===== GREETING SCREEN ===== -->
-    <div class="greeting-screen" id="greetingScreen">
-        <div class="greeting-text">Привет!</div>
-        <div class="greeting-sub">Добро пожаловать в мою историю</div>
-    </div>
-
-    <!-- ===== NAVIGATION ===== -->
-    <nav>
-        <div class="nav-container">
-            <a href="#home" class="nav-link active">Главная</a>
-            <a href="#bio" class="nav-link">Био</a>
-            <a href="#contacts" class="nav-link">Контакты</a>
-            <a href="#exhibition" class="nav-link">Выставка</a>
-        </div>
-    </nav>
-
-    <!-- ===== MAIN CONTENT ===== -->
-    <main>
-        <!-- HOME SECTION -->
-        <section id="home">
-            <div class="hero">
-                <h1>Моя История</h1>
-                <p>Добро пожаловать на мой персональный сайт. Здесь ты узнаешь обо мне, моём пути и моих работах.</p>
-            </div>
-
-            <div class="editable-text">
-                <!-- Вставь сюда свой текст про историю -->
-                <p>[ТВОЙ ТЕКСТ ОБО МНЕ — ЗАМЕНИ ЭТО НА РЕАЛЬНЫЙ КОНТЕНТ]</p>
-            </div>
-        </section>
-
-        <!-- BIO SECTION -->
-        <section id="bio">
-            <h2 class="section-title">Биография</h2>
-            <div class="bio-content editable-text">
-                <!-- Вставь сюда текст биографии с нужным шрифтом -->
-                <p>[ТЕКСТ БИОГРАФИИ — ШРИФТ КАК В ДОГЕНДАХ]</p>
-                <p>[Здесь будет твой текст с картинками]</p>
-                <!-- Когда пришлёшь картинки, я вставлю их сюда -->
-            </div>
-        </section>
-
-        <!-- CONTACTS SECTION -->
-        <section id="contacts">
-            <h2 class="section-title">Контакты</h2>
-            <div class="contact-info">
-                <div class="contact-item">
-                    <div class="contact-icon">📧</div>
-                    <span>[твоя почта]</span>
-                </div>
-                <div class="contact-item">
-                    <div class="contact-icon">📱</div>
-                    <span>[твой телефон]</span>
-                </div>
-                <div class="contact-item">
-                    <div class="contact-icon">📷</div>
-                    <span>[твой Instagram/другие соцсети]</span>
-                </div>
-            </div>
-            
-            <div class="editable-text" style="margin-top: 20px;">
-                <!-- Дополнительный контактный текст -->
-                <p>[ДОПОЛНИТЕЛЬНАЯ ИНФОРМАЦИЯ ДЛЯ СВЯЗИ]</p>
-            </div>
-        </section>
-
-        <!-- EXHIBITION SECTION -->
-        <section id="exhibition">
-            <h2 class="section-title">Выставка</h2>
-            <p class="exhibition-intro">
-                [Вставь здесь вступительный текст о выставке]
-            </p>
-            
-            <div class="gallery">
-                <!-- Карточка 1 -->
-                <div class="gallery-item">
-                    <div class="gallery-image">🖼️</div>
-                    <div class="gallery-caption">
-                        <h3>[Название работы 1]</h3>
-                        <p>[Описание работы]</p>
-                    </div>
-                </div>
-
-                <!-- Карточка 2 -->
-                <div class="gallery-item">
-                    <div class="gallery-image">🖼️</div>
-                    <div class="gallery-caption">
-                        <h3>[Название работы 2]</h3>
-                        <p>[Описание работы]</p>
-                    </div>
-                </div>
-
-                <!-- Карточка 3 -->
-                <div class="gallery-item">
-                    <div class="gallery-image">🖼️</div>
-                    <div class="gallery-caption">
-                        <h3>[Название работы 3]</h3>
-                        <p>[Описание работы]</p>
-                    </div>
-                </div>
-
-                <!-- Карточка 4 -->
-                <div class="gallery-item">
-                    <div class="gallery-image">🖼️</div>
-                    <div class="gallery-caption">
-                        <h3>[Название работы 4]</h3>
-                        <p>[Описание работы]</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Заглушка для будущих картинок -->
-            <div class="upload-placeholder">
-                📸 Сюда будут добавлены твои картинки для выставки<br>
-                <small>(пришли файлы, и я вставлю их)</small>
-            </div>
-        </section>
-    </main>
-
-    <!-- ===== FOOTER ===== -->
-    <footer>
-        <p>© 2026 Моя История. Все права защищены.</p>
-        <p style="margin-top:4px;">Created for GitHub Pages</p>
-    </footer>
-
-    <!-- ===== SCRIPT ===== -->
-    <script>
-        // Splash screen timing
-        setTimeout(() => {
-            document.getElementById('splashScreen').classList.add('hidden');
-            
-            // Show greeting after splash
-            setTimeout(() => {
-                document.getElementById('greetingScreen').classList.remove('hidden');
-                
-                // Hide greeting and show main site after 1.5 seconds
-                setTimeout(() => {
-                    document.getElementById('greetingScreen').classList.add('hidden');
-                }, 1500);
-            }, 200);
-        }, 2500);
-
-        // Active nav link on scroll
-        const sections = document.querySelectorAll('section');
-        const navLinks = document.querySelectorAll('.nav-link');
-
-        window.addEventListener('scroll', () => {
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                if (scrollY >= sectionTop - 100) {
-                    current = section.getAttribute('id');
-                }
-            });
-
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === `#${current}`) {
-                    link.classList.add('active');
-                }
-            });
-        });
-
-        // Smooth scroll for nav links
-        navLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const targetId = link.getAttribute('href');
-                const targetSection = document.querySelector(targetId);
-                targetSection.scrollIntoView({ behavior: 'smooth' });
-            });
-        });
-    </script>
-
-</body>
-</html>
-
-
+    <!-- Splash Screen (анимация загрузки) -->
+    <div id="splash-screen">
+        <div class="martini-loader">
+            <svg viewBox="0 0 100 150" width="120" height="180">
+                <!-- Бокал мартини -->
+                <path d="M20,30 L8
