@@ -1,473 +1,418 @@
 <!DOCTYPE html>
 <html lang="ru">
-
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Каждая история начинается с легенды</title>
-
-<style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
-
-
-body{
-
-height:100vh;
-overflow:hidden;
-font-family:Georgia, serif;
-
-}
-
-
-/* СЦЕНА */
-
-.scene{
-
-height:100vh;
-width:100vw;
-
-position:relative;
-
-background:
-
-linear-gradient(
-rgba(255,255,255,.15),
-rgba(0,0,0,.15)
-),
-
-#c7c7c5;
-
-}
-
-
-/* ГРАФФИТИ */
-
-.graffiti{
-
-position:absolute;
-
-top:60px;
-left:80px;
-
-width:350px;
-height:220px;
-
-opacity:.7;
-
-background:
-
-radial-gradient(circle at 20% 30%, #ff4d6d 0 30px, transparent 31px),
-radial-gradient(circle at 60% 40%, #00b4d8 0 45px, transparent 46px),
-radial-gradient(circle at 40% 70%, #ffd60a 0 35px, transparent 36px),
-radial-gradient(circle at 80% 60%, #8338ec 0 40px, transparent 41px);
-
-filter:blur(.5px);
-
-transform:rotate(-8deg);
-
-}
-
-
-
-/* МЕТАЛЛИЧЕСКАЯ СТОЙКА */
-
-.counter{
-
-position:absolute;
-
-bottom:0;
-
-width:100%;
-
-height:180px;
-
-
-background:
-
-linear-gradient(
-90deg,
-#333,
-#9b9b9b,
-#555,
-#b5b5b5,
-#404040
-);
-
-
-box-shadow:
-
-0 -15px 40px rgba(0,0,0,.35);
-
-
-}
-
-
-/* блик металла */
-
-.counter:before{
-
-content:"";
-
-position:absolute;
-
-top:20px;
-
-left:0;
-
-width:100%;
-
-height:2px;
-
-background:rgba(255,255,255,.5);
-
-}
-
-
-
-/* БОКАЛ МАРТИНИ */
-
-
-.glass{
-
-position:absolute;
-
-bottom:170px;
-
-left:50%;
-
-transform:translateX(-50%);
-
-width:170px;
-
-height:220px;
-
-z-index:5;
-
-}
-
-
-
-.bowl{
-
-position:absolute;
-
-width:170px;
-
-height:110px;
-
-border:3px solid rgba(255,255,255,.9);
-
-border-radius:0 0 90px 90px;
-
-overflow:hidden;
-
-background:rgba(255,255,255,.08);
-
-}
-
-
-
-/* напиток */
-
-.drink{
-
-position:absolute;
-
-bottom:0;
-
-width:100%;
-
-height:0;
-
-background:
-
-linear-gradient(
-to top,
-#f7f4ee,
-#ffffff
-);
-
-
-animation:fill 4s forwards;
-
-
-}
-
-
-
-.stem{
-
-position:absolute;
-
-top:108px;
-
-left:84px;
-
-height:90px;
-
-width:3px;
-
-background:white;
-
-}
-
-
-
-.base{
-
-position:absolute;
-
-bottom:0;
-
-left:45px;
-
-width:80px;
-
-height:3px;
-
-background:white;
-
-}
-
-
-
-
-/* РУКА БАРМЕНА */
-
-.hand{
-
-position:absolute;
-
-right:-250px;
-
-top:38%;
-
-width:360px;
-
-height:90px;
-
-background:
-
-linear-gradient(
-90deg,
-#d39b75,
-#f0b894
-);
-
-
-border-radius:
-
-50px 0 0 50px;
-
-
-transform:rotate(-12deg);
-
-
-z-index:4;
-
-
-animation:handMove 4s forwards;
-
-
-}
-
-
-
-/* шейкер */
-
-.shaker{
-
-position:absolute;
-
-right:40px;
-
-top:-40px;
-
-width:80px;
-
-height:35px;
-
-background:silver;
-
-border-radius:20px;
-
-transform:rotate(-30deg);
-
-}
-
-
-
-
-/* ТЕКСТ */
-
-
-.title{
-
-position:absolute;
-
-top:18%;
-
-width:100%;
-
-text-align:center;
-
-color:#222;
-
-font-size:38px;
-
-letter-spacing:2px;
-
-
-opacity:0;
-
-
-animation:appear 2s forwards;
-
-animation-delay:4s;
-
-
-z-index:10;
-
-
-}
-
-
-
-/* АНИМАЦИИ */
-
-
-@keyframes fill{
-
-from{
-
-height:0;
-
-}
-
-to{
-
-height:85%;
-
-}
-
-}
-
-
-
-@keyframes handMove{
-
-
-0%{
-
-right:-250px;
-
-}
-
-
-60%{
-
-right:130px;
-
-}
-
-
-100%{
-
-right:110px;
-
-}
-
-
-}
-
-
-
-@keyframes appear{
-
-
-from{
-
-opacity:0;
-
-transform:translateY(20px);
-
-}
-
-
-to{
-
-opacity:1;
-
-transform:translateY(0);
-
-}
-
-
-}
-
-
-</style>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="theme-color" content="#0066CC">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>Cocktail Bar</title>
+    <style>
+        /* ===== RESET ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #FFFFFF;
+            color: #1a1a2e;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ===== COLORS ===== */
+        :root {
+            --blue: #0066CC;
+            --blue-light: #E6F2FF;
+            --blue-dark: #004999;
+            --white: #FFFFFF;
+            --gray: #F5F5F7;
+            --text: #1a1a2e;
+            --shadow: 0 2px 12px rgba(0, 102, 204, 0.1);
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--white);
+            box-shadow: var(--shadow);
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        /* ===== MARTINI ICON ===== */
+        .martini-icon {
+            width: 40px;
+            height: 40px;
+        }
+
+        .header-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--blue);
+            letter-spacing: 0.5px;
+        }
+
+        /* ===== COLLAPSIBLE PANELS ===== */
+        .panels {
+            background: var(--blue-light);
+            border-bottom: 2px solid var(--blue);
+        }
+
+        .panel-item {
+            border-bottom: 1px solid rgba(0, 102, 204, 0.15);
+            overflow: hidden;
+        }
+
+        .panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--blue-dark);
+            transition: background 0.2s ease;
+            user-select: none;
+        }
+
+        .panel-header:active {
+            background: rgba(0, 102, 204, 0.08);
+        }
+
+        .panel-header .arrow {
+            transition: transform 0.3s ease;
+            font-size: 0.75rem;
+            color: var(--blue);
+        }
+
+        .panel-item.open .panel-header .arrow {
+            transform: rotate(180deg);
+        }
+
+        .panel-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease;
+            background: var(--white);
+        }
+
+        .panel-content-inner {
+            padding: 16px 20px;
+            color: var(--text);
+            font-size: 0.95rem;
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        main {
+            padding: 24px 20px;
+            max-width: 640px;
+            margin: 0 auto;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 32px 0 24px;
+        }
+
+        .hero h1 {
+            font-size: 1.75rem;
+            color: var(--blue);
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .hero p {
+            color: #666;
+            font-size: 1rem;
+            max-width: 420px;
+            margin: 0 auto;
+        }
+
+        .qr-section {
+            text-align: center;
+            margin: 32px 0;
+            padding: 24px;
+            background: var(--blue-light);
+            border-radius: 20px;
+        }
+
+        .qr-section p {
+            color: var(--blue-dark);
+            font-weight: 500;
+            margin-bottom: 16px;
+        }
+
+        /* ===== CARDS ===== */
+        .cards {
+            display: grid;
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .card {
+            background: var(--white);
+            border: 2px solid var(--blue-light);
+            border-radius: 16px;
+            padding: 20px;
+            transition: border-color 0.2s ease, transform 0.2s ease;
+        }
+
+        .card:active {
+            transform: scale(0.98);
+        }
+
+        .card:hover {
+            border-color: var(--blue);
+        }
+
+        .card h3 {
+            color: var(--blue);
+            font-size: 1.05rem;
+            margin-bottom: 8px;
+        }
+
+        .card p {
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn {
+            display: inline-block;
+            background: var(--blue);
+            color: var(--white);
+            padding: 14px 28px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.2s ease;
+            text-align: center;
+        }
+
+        .btn:active {
+            transform: scale(0.96);
+            background: var(--blue-dark);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            text-align: center;
+            padding: 32px 20px;
+            color: #999;
+            font-size: 0.85rem;
+            border-top: 1px solid var(--gray);
+            margin-top: 40px;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (min-width: 768px) {
+            header {
+                padding: 16px 24px;
+            }
+            .header-title {
+                font-size: 1.5rem;
+            }
+            .hero h1 {
+                font-size: 2.25rem;
+            }
+            main {
+                padding: 32px;
+            }
+            .cards {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .cards {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+        }
+
+        /* ===== ANIMATION ===== */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.4s ease forwards;
+        }
+    </style>
 </head>
-
-
 <body>
 
+    <!-- ===== HEADER WITH MARTINI ICON ===== -->
+    <header>
+        <!-- Martini Glass SVG Icon -->
+        <svg class="martini-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 8 L40 8 L24 26 Z" fill="#0066CC"/>
+            <path d="M24 26 L24 38" stroke="#0066CC" stroke-width="2.5"/>
+            <ellipse cx="24" cy="40" rx="8" ry="2" fill="#0066CC"/>
+            <line x1="8" y1="8" x2="40" y2="8" stroke="#004999" stroke-width="1.5"/>
+            <circle cx="17" cy="13" r="1.5" fill="#fff" opacity="0.7"/>
+        </svg>
+        <span class="header-title">Cocktail Bar</span>
+    </header>
 
-<div class="scene">
+    <!-- ===== COLLAPSIBLE PANELS ===== -->
+    <div class="panels">
+        <div class="panel-item open">
+            <div class="panel-header" onclick="togglePanel(this)">
+                ℹ️ О нас
+                <span class="arrow">▼</span>
+            </div>
+            <div class="panel-content">
+                <div class="panel-content-inner">
+                    Добро пожаловать в Cocktail Bar! Мы предлагаем лучшие коктейли в городе.
+                    Свежие ингредиенты, профессиональные бармены и уютная атмосфера.
+                </div>
+            </div>
+        </div>
 
+        <div class="panel-item">
+            <div class="panel-header" onclick="togglePanel(this)">
+                🕐 Время работы
+                <span class="arrow">▼</span>
+            </div>
+            <div class="panel-content">
+                <div class="panel-content-inner">
+                    Пн–Чт: 18:00 – 02:00<br>
+                    Пт–Сб: 16:00 – 04:00<br>
+                    Вс: 16:00 – 00:00
+                </div>
+            </div>
+        </div>
 
-<div class="graffiti"></div>
+        <div class="panel-item">
+            <div class="panel-header" onclick="togglePanel(this)">
+                📍 Контакты
+                <span class="arrow">▼</span>
+            </div>
+            <div class="panel-content">
+                <div class="panel-content-inner">
+                    Адрес: ул. Примерная, 1<br>
+                    Телефон: +7 (999) 123-45-67<br>
+                    Instagram: @cocktail_bar
+                </div>
+            </div>
+        </div>
 
+        <div class="panel-item">
+            <div class="panel-header" onclick="togglePanel(this)">
+                🍸 Меню
+                <span class="arrow">▼</span>
+            </div>
+            <div class="panel-content">
+                <div class="panel-content-inner">
+                    <strong>Классика:</strong> Мартини, Негрони, Олд Фэшн<br>
+                    <strong>Авторские:</strong> Blue Ocean, Sunset Vibes, Midnight<br>
+                    <strong>Без алкоголя:</strong> Мохито Virgin, Berry Smash<br><br>
+                    <em>Полное меню доступно по запросу у бармена.</em>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<div class="hand">
+    <!-- ===== MAIN CONTENT ===== -->
+    <main>
+        <div class="hero fade-in">
+            <h1>Cocktail Bar</h1>
+            <p>Отсканируйте QR-код и откройте для себя мир вкуса. Лучшие коктейли в одном касании.</p>
+        </div>
 
-<div class="shaker"></div>
+        <div class="qr-section fade-in">
+            <p>📱 Наведите камеру iPhone на QR-код</p>
+            <button class="btn" onclick="alert('Разместите здесь ваш QR-код!')">Показать QR-код</button>
+        </div>
 
-</div>
+        <div class="cards">
+            <div class="card fade-in">
+                <h3>🍹 Авторские коктейли</h3>
+                <p>Уникальные рецепты от наших барменов</p>
+            </div>
+            <div class="card fade-in">
+                <h3>🎉 Мероприятия</h3>
+                <p>Дижестив, караоке, живая музыка каждую пятницу</p>
+            </div>
+            <div class="card fade-in">
+                <h3>🎁 Акции</h3>
+                <p>Счастливые часы каждый день с 18:00 до 20:00</p>
+            </div>
+        </div>
 
+        <div style="text-align:center; margin-top:32px;">
+            <a href="#" class="btn" onclick="alert('Здесь можно добавить ссылку на резервирование столика')">Забронировать столик</a>
+        </div>
+    </main>
 
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <p>© 2026 Cocktail Bar. Все права защищены.</p>
+        <p style="margin-top:4px;">Powered by GitHub Pages</p>
+    </footer>
 
-<div class="glass">
+    <!-- ===== JAVASCRIPT ===== -->
+    <script>
+        // Collapsible panels
+        function togglePanel(header) {
+            const item = header.parentElement;
+            const content = item.querySelector('.panel-content');
+            const isOpen = item.classList.contains('open');
 
-<div class="bowl">
+            // Close all panels (accordion behavior)
+            document.querySelectorAll('.panel-item').forEach(p => {
+                p.classList.remove('open');
+                p.querySelector('.panel-content').style.maxHeight = '0';
+            });
 
-<div class="drink"></div>
+            // Open clicked panel if it was closed
+            if (!isOpen) {
+                item.classList.add('open');
+                content.style.maxHeight = content.scrollHeight + 'px';
+            }
+        }
 
-</div>
+        // Initialize: open first panel
+        document.addEventListener('DOMContentLoaded', function() {
+            const firstContent = document.querySelector('.panel-item.open .panel-content');
+            if (firstContent) {
+                firstContent.style.maxHeight = firstContent.scrollHeight + 'px';
+            }
 
+            // Add stagger animation to cards
+            const cards = document.querySelectorAll('.fade-in');
+            cards.forEach((el, i) => {
+                el.style.animationDelay = (i * 0.1) + 's';
+            });
+        });
 
-<div class="stem"></div>
-
-<div class="base"></div>
-
-
-</div>
-
-
-
-<div class="title">
-
-Каждая история начинается с легенды.
-
-</div>
-
-
-
-<div class="counter"></div>
-
-
-
-</div>
-
+        // Recalc max-height on resize
+        window.addEventListener('resize', function() {
+            document.querySelectorAll('.panel-item.open .panel-content').forEach(c => {
+                c.style.maxHeight = c.scrollHeight + 'px';
+            });
+        });
+    </script>
 
 </body>
-
 </html>
+
