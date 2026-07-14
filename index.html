@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <meta name="theme-color" content="#0066CC">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <title>Cocktail Bar</title>
+    <meta name="theme-color" content="#E6F2FF">
+    <title>Моя История</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         /* ===== RESET ===== */
         * {
@@ -21,398 +20,553 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Open Sans', sans-serif;
             background: #FFFFFF;
             color: #1a1a2e;
-            line-height: 1.6;
+            line-height: 1.8;
             overflow-x: hidden;
         }
 
         /* ===== COLORS ===== */
         :root {
-            --blue: #0066CC;
             --blue-light: #E6F2FF;
+            --blue: #0066CC;
             --blue-dark: #004999;
+            --blue-accent: #66AAFF;
             --white: #FFFFFF;
-            --gray: #F5F5F7;
+            --gray: #F8FAFC;
             --text: #1a1a2e;
-            --shadow: 0 2px 12px rgba(0, 102, 204, 0.1);
+            --text-light: #666;
         }
 
-        /* ===== HEADER ===== */
-        header {
-            position: sticky;
+        /* ===== SPLASH SCREEN ===== */
+        .splash-screen {
+            position: fixed;
             top: 0;
-            z-index: 100;
-            background: var(--white);
-            box-shadow: var(--shadow);
-            padding: 12px 16px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--blue-light), var(--white));
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 12px;
+            z-index: 9999;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
         }
 
-        /* ===== MARTINI ICON ===== */
-        .martini-icon {
-            width: 40px;
-            height: 40px;
+        .splash-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
         }
 
-        .header-title {
-            font-size: 1.25rem;
-            font-weight: 700;
+        .splash-martini {
+            width: 80px;
+            height: 80px;
+            animation: float 2s ease-in-out infinite, pour 2s ease-in-out infinite;
+        }
+
+        .splash-text {
+            margin-top: 32px;
+            font-size: 1.5rem;
             color: var(--blue);
-            letter-spacing: 0.5px;
-        }
-
-        /* ===== COLLAPSIBLE PANELS ===== */
-        .panels {
-            background: var(--blue-light);
-            border-bottom: 2px solid var(--blue);
-        }
-
-        .panel-item {
-            border-bottom: 1px solid rgba(0, 102, 204, 0.15);
-            overflow: hidden;
-        }
-
-        .panel-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 16px 20px;
-            cursor: pointer;
-            font-size: 1rem;
             font-weight: 600;
-            color: var(--blue-dark);
-            transition: background 0.2s ease;
-            user-select: none;
+            opacity: 0;
+            animation: fadeInUp 0.6s ease forwards 0.8s;
         }
 
-        .panel-header:active {
-            background: rgba(0, 102, 204, 0.08);
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
         }
 
-        .panel-header .arrow {
-            transition: transform 0.3s ease;
-            font-size: 0.75rem;
+        @keyframes pour {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== GREETING AFTER SPLASH ===== */
+        .greeting-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--blue-light), var(--white));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9998;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+
+        .greeting-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .greeting-text {
+            font-size: 3rem;
             color: var(--blue);
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+            animation: bounceIn 0.8s ease;
         }
 
-        .panel-item.open .panel-header .arrow {
-            transform: rotate(180deg);
+        .greeting-sub {
+            margin-top: 16px;
+            font-size: 1.1rem;
+            color: var(--text-light);
+            animation: fadeInUp 0.6s ease forwards;
         }
 
-        .panel-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.35s ease;
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); opacity: 1; }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); }
+        }
+
+        /* ===== NAVIGATION ===== */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
             background: var(--white);
+            box-shadow: 0 2px 12px rgba(0, 102, 204, 0.1);
+            padding: 8px 0;
         }
 
-        .panel-content-inner {
-            padding: 16px 20px;
-            color: var(--text);
+        .nav-container {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 4px;
+            padding: 0 16px;
+            overflow-x: auto;
+        }
+
+        .nav-link {
+            padding: 12px 16px;
+            color: var(--blue);
+            text-decoration: none;
+            font-weight: 600;
             font-size: 0.95rem;
+            border-radius: 8px;
+            transition: background 0.2s ease, transform 0.2s ease;
+            white-space: nowrap;
+            border-bottom: 2px solid transparent;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: var(--blue-light);
+            border-bottom-color: var(--blue);
+        }
+
+        .nav-link:active {
+            transform: scale(0.96);
         }
 
         /* ===== MAIN CONTENT ===== */
         main {
-            padding: 24px 20px;
-            max-width: 640px;
+            max-width: 800px;
             margin: 0 auto;
+            padding: 24px 20px 40px;
         }
 
+        section {
+            margin-bottom: 48px;
+            scroll-margin-top: 80px;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--blue);
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--blue-light);
+        }
+
+        .editable-text {
+            background: var(--gray);
+            padding: 20px;
+            border-radius: 12px;
+            min-height: 100px;
+            border: 2px dashed var(--blue-light);
+            transition: border-color 0.2s ease;
+        }
+
+        .editable-text:focus-within {
+            border-color: var(--blue);
+            background: var(--white);
+        }
+
+        /* ===== HERO SECTION ===== */
         .hero {
             text-align: center;
-            padding: 32px 0 24px;
+            padding: 40px 0;
+            background: linear-gradient(135deg, var(--blue-light), var(--white));
+            border-radius: 20px;
+            margin-bottom: 40px;
         }
 
         .hero h1 {
-            font-size: 1.75rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
             color: var(--blue);
-            margin-bottom: 12px;
-            font-weight: 700;
-        }
-
-        .hero p {
-            color: #666;
-            font-size: 1rem;
-            max-width: 420px;
-            margin: 0 auto;
-        }
-
-        .qr-section {
-            text-align: center;
-            margin: 32px 0;
-            padding: 24px;
-            background: var(--blue-light);
-            border-radius: 20px;
-        }
-
-        .qr-section p {
-            color: var(--blue-dark);
-            font-weight: 500;
             margin-bottom: 16px;
         }
 
-        /* ===== CARDS ===== */
-        .cards {
-            display: grid;
-            gap: 16px;
-            margin-top: 24px;
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 500px;
+            margin: 0 auto;
         }
 
-        .card {
-            background: var(--white);
-            border: 2px solid var(--blue-light);
-            border-radius: 16px;
-            padding: 20px;
-            transition: border-color 0.2s ease, transform 0.2s ease;
-        }
-
-        .card:active {
-            transform: scale(0.98);
-        }
-
-        .card:hover {
-            border-color: var(--blue);
-        }
-
-        .card h3 {
-            color: var(--blue);
-            font-size: 1.05rem;
-            margin-bottom: 8px;
-        }
-
-        .card p {
-            font-size: 0.9rem;
-            color: #555;
-        }
-
-        /* ===== BUTTONS ===== */
-        .btn {
-            display: inline-block;
-            background: var(--blue);
-            color: var(--white);
-            padding: 14px 28px;
-            border-radius: 12px;
-            text-decoration: none;
-            font-weight: 600;
+        /* ===== BIOGRAPHY ===== */
+        .bio-content {
             font-size: 1rem;
-            border: none;
-            cursor: pointer;
-            transition: background 0.2s ease, transform 0.2s ease;
-            text-align: center;
+            line-height: 2;
+            color: var(--text);
         }
 
-        .btn:active {
-            transform: scale(0.96);
-            background: var(--blue-dark);
+        .bio-content p {
+            margin-bottom: 16px;
+        }
+
+        .bio-content img {
+            max-width: 100%;
+            border-radius: 12px;
+            margin: 20px 0;
+            box-shadow: 0 4px 16px rgba(0, 102, 204, 0.15);
+        }
+
+        /* ===== CONTACTS ===== */
+        .contact-info {
+            background: var(--blue-light);
+            padding: 24px;
+            border-radius: 16px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            font-size: 1rem;
+        }
+
+        .contact-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        /* ===== EXHIBITION GALLERY ===== */
+        .exhibition-intro {
+            margin-bottom: 24px;
+            font-size: 1rem;
+            color: var(--text-light);
+        }
+
+        .gallery {
+            display: grid;
+            gap: 20px;
+        }
+
+        .gallery-item {
+            background: var(--gray);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 102, 204, 0.08);
+        }
+
+        .gallery-image {
+            width: 100%;
+            aspect-ratio: 4/3;
+            background: var(--blue-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--blue);
+            font-size: 2rem;
+        }
+
+        .gallery-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gallery-caption {
+            padding: 16px;
+        }
+
+        .gallery-caption h3 {
+            color: var(--blue);
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .gallery-caption p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        /* ===== PLACEHOLDER FOR UPLOADS ===== */
+        .upload-placeholder {
+            border: 2px dashed var(--blue);
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            color: var(--blue);
+            background: var(--blue-light);
+            margin: 16px 0;
         }
 
         /* ===== FOOTER ===== */
         footer {
             text-align: center;
             padding: 32px 20px;
-            color: #999;
+            color: var(--text-light);
             font-size: 0.85rem;
-            border-top: 1px solid var(--gray);
+            border-top: 1px solid var(--blue-light);
             margin-top: 40px;
         }
 
         /* ===== RESPONSIVE ===== */
-        @media (min-width: 768px) {
-            header {
-                padding: 16px 24px;
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.75rem;
             }
-            .header-title {
+            .section-title {
                 font-size: 1.5rem;
             }
-            .hero h1 {
-                font-size: 2.25rem;
+            .greeting-text {
+                font-size: 2rem;
             }
-            main {
-                padding: 32px;
-            }
-            .cards {
+        }
+
+        @media (min-width: 768px) {
+            .gallery {
                 grid-template-columns: 1fr 1fr;
             }
-        }
-
-        @media (min-width: 1024px) {
-            .cards {
-                grid-template-columns: 1fr 1fr 1fr;
+            main {
+                padding: 32px 24px 48px;
             }
-        }
-
-        /* ===== ANIMATION ===== */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .fade-in {
-            animation: fadeIn 0.4s ease forwards;
         }
     </style>
 </head>
 <body>
 
-    <!-- ===== HEADER WITH MARTINI ICON ===== -->
-    <header>
-        <!-- Martini Glass SVG Icon -->
-        <svg class="martini-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- ===== SPLASH SCREEN (LOADING) ===== -->
+    <div class="splash-screen" id="splashScreen">
+        <svg class="splash-martini" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M8 8 L40 8 L24 26 Z" fill="#0066CC"/>
             <path d="M24 26 L24 38" stroke="#0066CC" stroke-width="2.5"/>
             <ellipse cx="24" cy="40" rx="8" ry="2" fill="#0066CC"/>
-            <line x1="8" y1="8" x2="40" y2="8" stroke="#004999" stroke-width="1.5"/>
-            <circle cx="17" cy="13" r="1.5" fill="#fff" opacity="0.7"/>
         </svg>
-        <span class="header-title">Cocktail Bar</span>
-    </header>
-
-    <!-- ===== COLLAPSIBLE PANELS ===== -->
-    <div class="panels">
-        <div class="panel-item open">
-            <div class="panel-header" onclick="togglePanel(this)">
-                ℹ️ О нас
-                <span class="arrow">▼</span>
-            </div>
-            <div class="panel-content">
-                <div class="panel-content-inner">
-                    Добро пожаловать в Cocktail Bar! Мы предлагаем лучшие коктейли в городе.
-                    Свежие ингредиенты, профессиональные бармены и уютная атмосфера.
-                </div>
-            </div>
-        </div>
-
-        <div class="panel-item">
-            <div class="panel-header" onclick="togglePanel(this)">
-                🕐 Время работы
-                <span class="arrow">▼</span>
-            </div>
-            <div class="panel-content">
-                <div class="panel-content-inner">
-                    Пн–Чт: 18:00 – 02:00<br>
-                    Пт–Сб: 16:00 – 04:00<br>
-                    Вс: 16:00 – 00:00
-                </div>
-            </div>
-        </div>
-
-        <div class="panel-item">
-            <div class="panel-header" onclick="togglePanel(this)">
-                📍 Контакты
-                <span class="arrow">▼</span>
-            </div>
-            <div class="panel-content">
-                <div class="panel-content-inner">
-                    Адрес: ул. Примерная, 1<br>
-                    Телефон: +7 (999) 123-45-67<br>
-                    Instagram: @cocktail_bar
-                </div>
-            </div>
-        </div>
-
-        <div class="panel-item">
-            <div class="panel-header" onclick="togglePanel(this)">
-                🍸 Меню
-                <span class="arrow">▼</span>
-            </div>
-            <div class="panel-content">
-                <div class="panel-content-inner">
-                    <strong>Классика:</strong> Мартини, Негрони, Олд Фэшн<br>
-                    <strong>Авторские:</strong> Blue Ocean, Sunset Vibes, Midnight<br>
-                    <strong>Без алкоголя:</strong> Мохито Virgin, Berry Smash<br><br>
-                    <em>Полное меню доступно по запросу у бармена.</em>
-                </div>
-            </div>
-        </div>
+        <div class="splash-text">Загрузка...</div>
     </div>
+
+    <!-- ===== GREETING SCREEN ===== -->
+    <div class="greeting-screen" id="greetingScreen">
+        <div class="greeting-text">Привет!</div>
+        <div class="greeting-sub">Добро пожаловать в мою историю</div>
+    </div>
+
+    <!-- ===== NAVIGATION ===== -->
+    <nav>
+        <div class="nav-container">
+            <a href="#home" class="nav-link active">Главная</a>
+            <a href="#bio" class="nav-link">Био</a>
+            <a href="#contacts" class="nav-link">Контакты</a>
+            <a href="#exhibition" class="nav-link">Выставка</a>
+        </div>
+    </nav>
 
     <!-- ===== MAIN CONTENT ===== -->
     <main>
-        <div class="hero fade-in">
-            <h1>Cocktail Bar</h1>
-            <p>Отсканируйте QR-код и откройте для себя мир вкуса. Лучшие коктейли в одном касании.</p>
-        </div>
-
-        <div class="qr-section fade-in">
-            <p>📱 Наведите камеру iPhone на QR-код</p>
-            <button class="btn" onclick="alert('Разместите здесь ваш QR-код!')">Показать QR-код</button>
-        </div>
-
-        <div class="cards">
-            <div class="card fade-in">
-                <h3>🍹 Авторские коктейли</h3>
-                <p>Уникальные рецепты от наших барменов</p>
+        <!-- HOME SECTION -->
+        <section id="home">
+            <div class="hero">
+                <h1>Моя История</h1>
+                <p>Добро пожаловать на мой персональный сайт. Здесь ты узнаешь обо мне, моём пути и моих работах.</p>
             </div>
-            <div class="card fade-in">
-                <h3>🎉 Мероприятия</h3>
-                <p>Дижестив, караоке, живая музыка каждую пятницу</p>
-            </div>
-            <div class="card fade-in">
-                <h3>🎁 Акции</h3>
-                <p>Счастливые часы каждый день с 18:00 до 20:00</p>
-            </div>
-        </div>
 
-        <div style="text-align:center; margin-top:32px;">
-            <a href="#" class="btn" onclick="alert('Здесь можно добавить ссылку на резервирование столика')">Забронировать столик</a>
-        </div>
+            <div class="editable-text">
+                <!-- Вставь сюда свой текст про историю -->
+                <p>[ТВОЙ ТЕКСТ ОБО МНЕ — ЗАМЕНИ ЭТО НА РЕАЛЬНЫЙ КОНТЕНТ]</p>
+            </div>
+        </section>
+
+        <!-- BIO SECTION -->
+        <section id="bio">
+            <h2 class="section-title">Биография</h2>
+            <div class="bio-content editable-text">
+                <!-- Вставь сюда текст биографии с нужным шрифтом -->
+                <p>[ТЕКСТ БИОГРАФИИ — ШРИФТ КАК В ДОГЕНДАХ]</p>
+                <p>[Здесь будет твой текст с картинками]</p>
+                <!-- Когда пришлёшь картинки, я вставлю их сюда -->
+            </div>
+        </section>
+
+        <!-- CONTACTS SECTION -->
+        <section id="contacts">
+            <h2 class="section-title">Контакты</h2>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">📧</div>
+                    <span>[твоя почта]</span>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📱</div>
+                    <span>[твой телефон]</span>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📷</div>
+                    <span>[твой Instagram/другие соцсети]</span>
+                </div>
+            </div>
+            
+            <div class="editable-text" style="margin-top: 20px;">
+                <!-- Дополнительный контактный текст -->
+                <p>[ДОПОЛНИТЕЛЬНАЯ ИНФОРМАЦИЯ ДЛЯ СВЯЗИ]</p>
+            </div>
+        </section>
+
+        <!-- EXHIBITION SECTION -->
+        <section id="exhibition">
+            <h2 class="section-title">Выставка</h2>
+            <p class="exhibition-intro">
+                [Вставь здесь вступительный текст о выставке]
+            </p>
+            
+            <div class="gallery">
+                <!-- Карточка 1 -->
+                <div class="gallery-item">
+                    <div class="gallery-image">🖼️</div>
+                    <div class="gallery-caption">
+                        <h3>[Название работы 1]</h3>
+                        <p>[Описание работы]</p>
+                    </div>
+                </div>
+
+                <!-- Карточка 2 -->
+                <div class="gallery-item">
+                    <div class="gallery-image">🖼️</div>
+                    <div class="gallery-caption">
+                        <h3>[Название работы 2]</h3>
+                        <p>[Описание работы]</p>
+                    </div>
+                </div>
+
+                <!-- Карточка 3 -->
+                <div class="gallery-item">
+                    <div class="gallery-image">🖼️</div>
+                    <div class="gallery-caption">
+                        <h3>[Название работы 3]</h3>
+                        <p>[Описание работы]</p>
+                    </div>
+                </div>
+
+                <!-- Карточка 4 -->
+                <div class="gallery-item">
+                    <div class="gallery-image">🖼️</div>
+                    <div class="gallery-caption">
+                        <h3>[Название работы 4]</h3>
+                        <p>[Описание работы]</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Заглушка для будущих картинок -->
+            <div class="upload-placeholder">
+                📸 Сюда будут добавлены твои картинки для выставки<br>
+                <small>(пришли файлы, и я вставлю их)</small>
+            </div>
+        </section>
     </main>
 
     <!-- ===== FOOTER ===== -->
     <footer>
-        <p>© 2026 Cocktail Bar. Все права защищены.</p>
-        <p style="margin-top:4px;">Powered by GitHub Pages</p>
+        <p>© 2026 Моя История. Все права защищены.</p>
+        <p style="margin-top:4px;">Created for GitHub Pages</p>
     </footer>
 
-    <!-- ===== JAVASCRIPT ===== -->
+    <!-- ===== SCRIPT ===== -->
     <script>
-        // Collapsible panels
-        function togglePanel(header) {
-            const item = header.parentElement;
-            const content = item.querySelector('.panel-content');
-            const isOpen = item.classList.contains('open');
+        // Splash screen timing
+        setTimeout(() => {
+            document.getElementById('splashScreen').classList.add('hidden');
+            
+            // Show greeting after splash
+            setTimeout(() => {
+                document.getElementById('greetingScreen').classList.remove('hidden');
+                
+                // Hide greeting and show main site after 1.5 seconds
+                setTimeout(() => {
+                    document.getElementById('greetingScreen').classList.add('hidden');
+                }, 1500);
+            }, 200);
+        }, 2500);
 
-            // Close all panels (accordion behavior)
-            document.querySelectorAll('.panel-item').forEach(p => {
-                p.classList.remove('open');
-                p.querySelector('.panel-content').style.maxHeight = '0';
+        // Active nav link on scroll
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
             });
 
-            // Open clicked panel if it was closed
-            if (!isOpen) {
-                item.classList.add('open');
-                content.style.maxHeight = content.scrollHeight + 'px';
-            }
-        }
-
-        // Initialize: open first panel
-        document.addEventListener('DOMContentLoaded', function() {
-            const firstContent = document.querySelector('.panel-item.open .panel-content');
-            if (firstContent) {
-                firstContent.style.maxHeight = firstContent.scrollHeight + 'px';
-            }
-
-            // Add stagger animation to cards
-            const cards = document.querySelectorAll('.fade-in');
-            cards.forEach((el, i) => {
-                el.style.animationDelay = (i * 0.1) + 's';
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
             });
         });
 
-        // Recalc max-height on resize
-        window.addEventListener('resize', function() {
-            document.querySelectorAll('.panel-item.open .panel-content').forEach(c => {
-                c.style.maxHeight = c.scrollHeight + 'px';
+        // Smooth scroll for nav links
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                targetSection.scrollIntoView({ behavior: 'smooth' });
             });
         });
     </script>
 
 </body>
 </html>
+
 
